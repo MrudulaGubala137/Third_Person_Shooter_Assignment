@@ -1,0 +1,20 @@
+****Third Person Shooter GDD****
+
+-----------------------------------
+1. Terrain Design 
+2. Player Movement
+3. Player Animations using blend tree
+4. Firing 
+5. Sounds using animation events
+6. Add navmesh to terrain
+7. Enemy Spawning at given position
+8. State machine to control enemy movement
+9. Enemy attacking from only forward
+10. Player health
+11. Enemy death and ragdoll effect
+12. Particle Effects
+13. Enemy Count
+14. GameOver Condition
+---------------------------------
+ Win condition: If player kills all the enemies i.e enemy count=10;
+ Loose Condition: If player health is zero.
