@@ -10,8 +10,11 @@ public class PlayerMovement : MonoBehaviour
     // Start is called before the first frame update
     //Rigidbody rb;
     Animator animator;
+    public Transform bulletPoint;
+    StateMachineScript stateMachine;
     void Start()
     {
+        stateMachine=GameObject.Find("Enemy"). GetComponent<StateMachineScript>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         //rb= GetComponent<Rigidbody>();
@@ -25,11 +28,29 @@ public class PlayerMovement : MonoBehaviour
         Vector3 movement=new Vector3(inputX,0,inputZ);
         // transform.Translate(inputX,0f,inputZ);
         animator.SetFloat("Speed", movement.magnitude);
-        transform.Rotate(Vector3.up*inputX*Time.deltaTime*rotateSpeed);
+        transform.Rotate(Vector3.up*inputX*Time.deltaTime*rotateSpeed);   //Rotating the player
      if(inputZ!=0)
         {
-            characterController.Move(transform.forward*inputZ*Time.deltaTime);
+            characterController.Move(transform.forward*inputZ*Time.deltaTime); //For plyer movement
+        }
+     if(Input.GetMouseButtonDown(0))
+        {
+            Fire();//FireMethod to fire gun
         }
         
+    }
+    private void Fire()
+    {
+        Debug.DrawRay(bulletPoint.position,transform.forward *100, Color.red, 2f); //Draw ray in firing direction
+      Ray ray=new Ray(bulletPoint.position,bulletPoint.forward);
+        RaycastHit hit;
+        if(Physics.Raycast(ray, out hit,100f))
+        {
+            if(hit.collider.tag=="Enemy")       //collider hit is Checking whether the tag is enemy 
+            {
+                stateMachine.Dead();
+            }
+        }
+
     }
 }
