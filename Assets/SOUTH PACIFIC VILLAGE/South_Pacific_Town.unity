@@ -14859,7 +14859,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_BindingMode: 1
-  m_FollowOffset: {x: 0, y: 2.4099998, z: -9.630005}
+  m_FollowOffset: {x: 3.7611084, y: 2.4099998, z: -7.5200195}
   m_XDamping: 1
   m_YDamping: 1
   m_ZDamping: 1
@@ -28850,8 +28850,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 898180985}
-  m_LocalRotation: {x: 0.12230445, y: -1e-45, z: -0, w: 0.9924927}
-  m_LocalPosition: {x: 1425.9089, y: 23.51, z: 725.51}
+  m_LocalRotation: {x: 0.13539566, y: -0.22757503, z: 0.03197093, w: 0.9637715}
+  m_LocalPosition: {x: 1429.67, y: 23.51, z: 727.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 486225304}
@@ -31225,7 +31225,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6d53c733fde024342ab5bd9fb925dc02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSpeed: 4
+  playerSpeed: 10
   rotateSpeed: 30
   bulletPoint: {fileID: 1512055248}
 --- !u!1 &963194225
@@ -31305,8 +31305,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 963194225}
-  m_LocalRotation: {x: 0.12230445, y: -1e-45, z: 0, w: 0.9924927}
-  m_LocalPosition: {x: 1425.9089, y: 23.51, z: 725.51}
+  m_LocalRotation: {x: 0.13539566, y: -0.22757503, z: 0.03197093, w: 0.9637715}
+  m_LocalPosition: {x: 1429.67, y: 23.51, z: 727.62}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -47302,13 +47302,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1512055244}
-  m_LocalRotation: {x: -0.6992638, y: -0.001204904, z: -0.022382705, w: 0.7145123}
+  m_LocalRotation: {x: -0.40935838, y: 0.5519077, z: -0.3260276, w: 0.6492531}
   m_LocalPosition: {x: 1.2959148, y: -0.045071017, z: 0.06595436}
   m_LocalScale: {x: 0.1, y: 0.09999999, z: 0.10000002}
   m_Children: []
   m_Father: {fileID: 1417736212}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -9.886, y: 86.762, z: -62.672}
 --- !u!108 &1512055249
 Light:
   m_ObjectHideFlags: 0
@@ -47323,8 +47323,8 @@ Light:
   m_Color: {r: 0.8207547, g: 0.09033454, b: 0.09033454, a: 1}
   m_Intensity: 10
   m_Range: 10
-  m_SpotAngle: 30
-  m_InnerSpotAngle: 21.80208
+  m_SpotAngle: 15
+  m_InnerSpotAngle: 6
   m_CookieSize: 10
   m_Shadows:
     m_Type: 0

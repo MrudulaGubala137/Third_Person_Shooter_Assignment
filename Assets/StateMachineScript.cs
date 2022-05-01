@@ -60,11 +60,14 @@ public class StateMachineScript : MonoBehaviour
     }
     public void LookFor()
     {
+        TurnOffAllAnim();
+        anim.SetTrigger("isWalking");
         float randValueX = transform.position.x + Random.Range(-5f, 5f);
         float randValueZ = transform.position.z + Random.Range(-5f, 5f);
         float ValueY = Terrain.activeTerrain.SampleHeight(new Vector3(randValueX, 0f, randValueZ));
         Vector3 destination = new Vector3(randValueX, ValueY, randValueZ);
-
+        agent.SetDestination(destination);
+        
         if (PlayerDistance() < gotoDistance)
         {
             currentState = STATE.GOTO;
@@ -83,6 +86,7 @@ public class StateMachineScript : MonoBehaviour
 
     public void Goto()
     {
+        TurnOffAllAnim();
         anim.SetTrigger("isRunning");
         if (PlayerDistance() > attackDistance)
         {
@@ -90,6 +94,10 @@ public class StateMachineScript : MonoBehaviour
             //transform.position = Vector3.MoveTowards(transform.position, target.transform.position * Time.deltaTime);
             agent.SetDestination(target.position);
         }
+       /* else if(PlayerDistance() > gotoDistance)
+        {
+            currentState=STATE.LOOKFOR;
+        }*/
         else
         {
             currentState = STATE.ATTACK;
@@ -98,12 +106,13 @@ public class StateMachineScript : MonoBehaviour
     }
     public void Attack()
     {
+        TurnOffAllAnim();
         anim.SetTrigger("isAttacking");
-        if (PlayerDistance() > attackDistance)
+       /* if (PlayerDistance() > attackDistance)
         {
             currentState = STATE.GOTO;
-        }
-        else if (PlayerDistance() > gotoDistance)
+        }*/
+         if (PlayerDistance() > gotoDistance)
         {
             currentState = STATE.LOOKFOR;
         }
@@ -111,10 +120,18 @@ public class StateMachineScript : MonoBehaviour
     }
     public void Dead()
     {
+        TurnOffAllAnim();
         anim.SetTrigger("isDead");
         gameObject.SetActive(false);
         // this.gameObject.SetActive(false);
         print("Enemy Dead");
+    }
+    public void TurnOffAllAnim()
+    {
+        anim.ResetTrigger("isAttacking");
+        anim.ResetTrigger("isWalking");
+        anim.ResetTrigger("isRunning");
+        anim.ResetTrigger("isDead");
     }
 
 

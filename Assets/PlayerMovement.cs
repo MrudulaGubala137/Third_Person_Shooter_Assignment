@@ -44,6 +44,7 @@ public class PlayerMovement : MonoBehaviour
         Debug.DrawRay(bulletPoint.position,transform.forward *100, Color.red, 2f); //Draw ray in firing direction
       Ray ray=new Ray(bulletPoint.position,bulletPoint.forward);
         RaycastHit hit;
+        print("Firing");
         if(Physics.Raycast(ray, out hit,100f))
         {
             if(hit.collider.tag=="Enemy")       //collider hit is Checking whether the tag is enemy 
