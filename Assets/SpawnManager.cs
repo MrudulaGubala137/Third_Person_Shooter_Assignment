@@ -15,7 +15,7 @@ public class SpawnManager : MonoBehaviour
         for (int i = 0; i < 10; i++)
         {
 
-            Vector3 randomPoint = transform.position + Random.insideUnitSphere * 3;
+            Vector3 randomPoint = transform.position + Random.insideUnitSphere * 10;
 
             NavMeshHit hit;
             if (NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas))

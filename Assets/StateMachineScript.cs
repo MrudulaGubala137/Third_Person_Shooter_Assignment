@@ -14,15 +14,21 @@ public class StateMachineScript : MonoBehaviour
     public float attackDistance;
     public Animator anim;
     PlayerMovement playerMovement;
+    float attackTime = 3;
+    float currentTime = 3;
+    bool isGameOver = false;
+    public GameObject ragDoll;
+    //int maxHealth = 10;
     public enum STATE { LOOKFOR, GOTO, ATTACK, DEAD };
     public STATE currentState = STATE.LOOKFOR;
 
     // Update is called once per frame
     IEnumerator Start()
     {
-
+        currentTime = attackTime;
         agent = GetComponent<NavMeshAgent>();
-        if (target == null)
+
+        if (target == null && isGameOver==false)
         {
             target = GameObject.Find("Player").GetComponent<Transform>();
             agent.SetDestination(target.position);
@@ -106,12 +112,28 @@ public class StateMachineScript : MonoBehaviour
     }
     public void Attack()
     {
+
+        currentTime = currentTime - Time.deltaTime;
+        if (currentTime <= 0f&& playerMovement.health>0)
+        {
+            playerMovement.health--;
+            // playerMovement.healthText.text="Health:"+playerMovement.health;
+            Debug.Log(playerMovement.health);
+            currentTime = attackTime;
+        }
+        if (playerMovement.health == 0)
+        {
+            isGameOver = true;
+            TurnOffAllAnim();
+            playerMovement.GameOver();
+        }
         TurnOffAllAnim();
         anim.SetTrigger("isAttacking");
        /* if (PlayerDistance() > attackDistance)
         {
             currentState = STATE.GOTO;
         }*/
+
          if (PlayerDistance() > gotoDistance)
         {
             currentState = STATE.LOOKFOR;
@@ -122,9 +144,19 @@ public class StateMachineScript : MonoBehaviour
     {
         TurnOffAllAnim();
         anim.SetTrigger("isDead");
-        gameObject.SetActive(false);
+        //gameObject.transform.position = ragDoll.transform.position;
+        RagdollEfect();
+        
+        
         // this.gameObject.SetActive(false);
         print("Enemy Dead");
+    }
+    public void RagdollEfect()
+    {
+         GameObject tempRd = Instantiate(ragDoll, this.transform.position, this.transform.rotation);
+        tempRd.transform.Find("Hips").GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 10000);
+        gameObject.SetActive(false);
+       // Destroy(this.gameObject);
     }
     public void TurnOffAllAnim()
     {
@@ -134,5 +166,5 @@ public class StateMachineScript : MonoBehaviour
         anim.ResetTrigger("isDead");
     }
 
-
+    
 }

@@ -7,15 +7,21 @@ public class PlayerMovement : MonoBehaviour
     public int playerSpeed;
     public int rotateSpeed;
     CharacterController characterController;
-   SpawnManager spawnManager;
+    SpawnManager spawnManager;
+    AudioSource audioSource;
+    public AudioClip WalkClip;
+    public AudioClip ShootClip;
     // Start is called before the first frame update
     //Rigidbody rb;
+    
     Animator animator;
     public Transform bulletPoint;
     StateMachineScript stateMachine;
+    public int health = 10;
     void Start()
     {
-        stateMachine=GameObject.Find("Enemy"). GetComponent<StateMachineScript>();
+        audioSource = GetComponent<AudioSource>();
+        stateMachine = GameObject.FindGameObjectWithTag("Enemy").GetComponent<StateMachineScript>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
         spawnManager = GameObject.Find("SpawnPoint").GetComponent<SpawnManager>();
@@ -25,39 +31,48 @@ public class PlayerMovement : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        float inputX = Input.GetAxis("Horizontal")*playerSpeed;
-        float inputZ = Input.GetAxis("Vertical")*playerSpeed;
-        Vector3 movement=new Vector3(inputX,0,inputZ);
+        
+        float inputX = Input.GetAxis("Horizontal") * playerSpeed;
+        float inputZ = Input.GetAxis("Vertical") * playerSpeed;
+        Vector3 movement = new Vector3(inputX, 0, inputZ);
         // transform.Translate(inputX,0f,inputZ);
         animator.SetFloat("Speed", movement.magnitude);
-        transform.Rotate(Vector3.up*inputX*Time.deltaTime*rotateSpeed);   //Rotating the player
-     if(inputZ!=0)
+        transform.Rotate(Vector3.up * inputX * Time.deltaTime * rotateSpeed);   //Rotating the player
+        if (inputZ != 0)
         {
-            characterController.Move(transform.forward*inputZ*Time.deltaTime); //For plyer movement
+            characterController.Move(transform.forward * inputZ * Time.deltaTime); //For plyer movement
         }
-     if(Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0))
         {
             Fire();//FireMethod to fire gun
         }
-        
+
     }
     private void Fire()
     {
-        Debug.DrawRay(bulletPoint.position,transform.forward *100, Color.red, 2f); //Draw ray in firing direction
-      Ray ray=new Ray(bulletPoint.position,bulletPoint.forward);
+        Debug.DrawRay(bulletPoint.position, transform.forward * 100, Color.red, 2f); //Draw ray in firing direction
+        Ray ray = new Ray(bulletPoint.position, bulletPoint.forward);
         RaycastHit hit;
+        audioSource.clip = ShootClip;
+        audioSource.Play();
         print("Firing");
-        if(Physics.Raycast(ray, out hit,100f))
+        if (Physics.Raycast(ray, out hit, 100f))
         {
-            if(hit.collider)       //collider hit is Checking whether the tag is enemy 
+            print("collider hit");
+            if (hit.collider.gameObject.tag == "Enemy")       //collider hit is Checking whether the tag is enemy 
             {
-                if (gameObject.tag == "Enemy")
-                {
-                    stateMachine.Dead();
-                }
+                print("enemy got hit");
+
+                stateMachine.Dead();
+
             }
         }
 
+    }
+    private void Walk()
+        {
+        audioSource.clip = WalkClip;
+        audioSource.Play();
     }
     public void OnTriggerEnter(Collider other)
     {
@@ -65,5 +80,10 @@ public class PlayerMovement : MonoBehaviour
         {
             spawnManager.SpawnEnemies();
         }
+    }
+    public void GameOver()
+    {
+        gameObject.SetActive(false);
+        print("GameOver");
     }
 }

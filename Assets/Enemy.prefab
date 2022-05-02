@@ -1972,6 +1972,8 @@ GameObject:
   - component: {fileID: 6009520307695775185}
   - component: {fileID: 8376020113462301448}
   - component: {fileID: 8376020113462301447}
+  - component: {fileID: -3444439893616693072}
+  - component: {fileID: -1595585566728169982}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -2035,6 +2037,7 @@ MonoBehaviour:
   gotoDistance: 10
   attackDistance: 4
   anim: {fileID: 6009520307695775185}
+  ragDoll: {fileID: 7332951897465328356, guid: 7f0267b757af6d048a9396d28e56e0f8, type: 3}
   currentState: 0
 --- !u!195 &8376020113462301447
 NavMeshAgent:
@@ -2058,6 +2061,36 @@ NavMeshAgent:
   m_BaseOffset: 0
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!136 &-3444439893616693072
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6009520307306303092}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 0.5
+  m_Height: 2
+  m_Direction: 1
+  m_Center: {x: 0, y: 1, z: 0}
+--- !u!54 &-1595585566728169982
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6009520307306303092}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!1 &6009520307306303094
 GameObject:
   m_ObjectHideFlags: 0
