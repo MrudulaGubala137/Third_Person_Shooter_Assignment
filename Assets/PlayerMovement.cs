@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
     public int playerSpeed;
     public int rotateSpeed;
     CharacterController characterController;
+   SpawnManager spawnManager;
     // Start is called before the first frame update
     //Rigidbody rb;
     Animator animator;
@@ -17,6 +18,7 @@ public class PlayerMovement : MonoBehaviour
         stateMachine=GameObject.Find("Enemy"). GetComponent<StateMachineScript>();
         characterController = GetComponent<CharacterController>();
         animator = GetComponent<Animator>();
+        spawnManager = GameObject.Find("SpawnPoint").GetComponent<SpawnManager>();
         //rb= GetComponent<Rigidbody>();
     }
 
@@ -47,11 +49,21 @@ public class PlayerMovement : MonoBehaviour
         print("Firing");
         if(Physics.Raycast(ray, out hit,100f))
         {
-            if(hit.collider.tag=="Enemy")       //collider hit is Checking whether the tag is enemy 
+            if(hit.collider)       //collider hit is Checking whether the tag is enemy 
             {
-                stateMachine.Dead();
+                if (gameObject.tag == "Enemy")
+                {
+                    stateMachine.Dead();
+                }
             }
         }
 
+    }
+    public void OnTriggerEnter(Collider other)
+    {
+        if(other.gameObject.tag=="SpawnPoint")
+        {
+            spawnManager.SpawnEnemies();
+        }
     }
 }
