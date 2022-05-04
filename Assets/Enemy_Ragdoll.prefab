@@ -1738,10 +1738,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7332951897465491076}
-  - component: {fileID: 7332951897472753996}
+  - component: {fileID: -1243931135124598953}
   m_Layer: 0
   m_Name: Enemy_Ragdoll
-  m_TagString: Untagged
+  m_TagString: RagDoll
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1754,7 +1754,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7332951897465328356}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1480.7, y: 21.1, z: 816.74}
+  m_LocalPosition: {x: 1428.4248, y: 17.063488, z: 765.8404}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7332951897465491116}
@@ -1767,25 +1767,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!95 &7332951897472753996
-Animator:
-  serializedVersion: 3
+--- !u!114 &-1243931135124598953
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7332951897465328356}
   m_Enabled: 1
-  m_Avatar: {fileID: 9000000, guid: 21a805ef27ad7ef42904fff42be01ba6, type: 3}
-  m_Controller: {fileID: 0}
-  m_CullingMode: 1
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 1
-  m_LinearVelocityBlending: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorControllerStateOnDisable: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60124b740b7f5bd4991f1d39132072de, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &7332951897465328358
 GameObject:
   m_ObjectHideFlags: 0

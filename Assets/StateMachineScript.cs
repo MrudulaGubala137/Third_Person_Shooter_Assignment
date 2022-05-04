@@ -17,17 +17,19 @@ public class StateMachineScript : MonoBehaviour
     float attackTime = 3;
     float currentTime = 3;
     bool isGameOver = false;
-    public GameObject ragDoll;
+  
     //int maxHealth = 10;
+    RagDollScript ragDollScript;
+   // public GameObject enemyRagDoll;
     public enum STATE { LOOKFOR, GOTO, ATTACK, DEAD };
     public STATE currentState = STATE.LOOKFOR;
-
+    SpawnManager spawnManager;
     // Update is called once per frame
     IEnumerator Start()
     {
         currentTime = attackTime;
         agent = GetComponent<NavMeshAgent>();
-
+       //spawnManager =GameObject.Find("SpawnPoint").GetComponent<SpawnManager>();
         if (target == null && isGameOver==false)
         {
             target = GameObject.Find("Player").GetComponent<Transform>();
@@ -144,20 +146,17 @@ public class StateMachineScript : MonoBehaviour
     {
         TurnOffAllAnim();
         anim.SetTrigger("isDead");
+        print("I am dead.");
         //gameObject.transform.position = ragDoll.transform.position;
-        RagdollEfect();
-        
-        
-        // this.gameObject.SetActive(false);
+        /* GameObject tempRd = (ObjectPoolScript.instance.GetObjectsFromPool("RagDoll"));
+         tempRd.transform.position = this.transform.position; 
+         //Instantiate(ragDoll, this.transform.position, this.transform.rotation);
+         tempRd.transform.Find("Hips").GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 10000);
+         tempRd.SetActive(true);*/
+       this.gameObject.SetActive(false);
         print("Enemy Dead");
     }
-    public void RagdollEfect()
-    {
-         GameObject tempRd = Instantiate(ragDoll, this.transform.position, this.transform.rotation);
-        tempRd.transform.Find("Hips").GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 10000);
-        gameObject.SetActive(false);
-       // Destroy(this.gameObject);
-    }
+    
     public void TurnOffAllAnim()
     {
         anim.ResetTrigger("isAttacking");
@@ -165,6 +164,7 @@ public class StateMachineScript : MonoBehaviour
         anim.ResetTrigger("isRunning");
         anim.ResetTrigger("isDead");
     }
+    
 
     
 }

@@ -6,22 +6,33 @@ using UnityEngine;
 public class SpawnManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    
-    public GameObject enemyPrefab;
-   
+
+    // public GameObject enemyPrefab;
+
     public void SpawnEnemies()
     {
-        
-        for (int i = 0; i < 10; i++)
+        GameObject tempEnemy = ObjectPoolScript.instance.GetObjectsFromPool("Enemy");
+        Debug.Log("tempEnemy:" +tempEnemy);
+
+        Vector3 randomPoint = transform.position + Random.insideUnitSphere * 10;
+        NavMeshHit hit;
+        for (int i = 0; i < 5; i++)
         {
-
-            Vector3 randomPoint = transform.position + Random.insideUnitSphere * 10;
-
-            NavMeshHit hit;
+           
             if (NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas))
             {
-
-                Instantiate(enemyPrefab, randomPoint, Quaternion.identity);
+                if (tempEnemy != null && tempEnemy.tag == "Enemy")
+                {
+                    Vector3 result = hit.position;
+                    print("enemy spawned");
+                    tempEnemy.GetComponent<Transform>().position = result;
+                    tempEnemy.SetActive(true);
+                   // Debug.Log(tempEnemy.activeInHierarchy?"true":"false");
+                    //print("enemy is true");
+                   // tempEnemy.transform.position = randomPoint;
+                     //tempEnemy.SetActive(true);
+                }
+                //Instantiate(enemyPrefab, randomPoint, Quaternion.identity);
 
             }
             else
@@ -30,11 +41,12 @@ public class SpawnManager : MonoBehaviour
         }
 
     }
+    
 
     // Update is called once per frame
-   
-   
-        
-    }
+
+
+
+}
     
 
