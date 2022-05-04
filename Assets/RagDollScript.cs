@@ -17,7 +17,7 @@ public class RagDollScript : MonoBehaviour
         time=time+Time.deltaTime;
         if(time>3f)
         {
-            Destroy(gameObject);
+            Destroy(gameObject);         //Setting Ragdoll active to false after 3sec
             //this.gameObject.SetActive(false);
             time=0;
 

@@ -6,8 +6,8 @@ public class ObjectPoolScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public static ObjectPoolScript instance;
-    public List<GameObject> pool = new List<GameObject>();
-    public List<PoolObject> poolItems = new List<PoolObject>();
+    public List<GameObject> pool = new List<GameObject>();  //List of GameObject
+    public List<PoolObject> poolItems = new List<PoolObject>(); //List of poolObjects
     private void Awake()
     {
         if(instance == null)
@@ -18,16 +18,16 @@ public class ObjectPoolScript : MonoBehaviour
     }
     void Start()
     {
-        AddToPool();
+        AddToPool();    //Adding gameObjects to pool
 
     }
     private void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Escape))
+        /*if(Input.GetKeyDown(KeyCode.Escape))
         {
             GameObject temp = GetObjectsFromPool("Enemy");
                 temp.gameObject.SetActive(true);    
-        }
+        }*/
     }
 
     // Update is called once per frame
@@ -37,10 +37,10 @@ public class ObjectPoolScript : MonoBehaviour
         {
             for(int i=0; i<item.amount; i++)
             {
-                GameObject temp = Instantiate(item.prefab);
+                GameObject temp = Instantiate(item.prefab); //Instantiating gameObjects from pool
                 
-                pool.Add(temp);
-                temp.SetActive(false);
+                pool.Add(temp); //Addidng those gameObjects to pool
+                temp.SetActive(false);  //GameObjects setting to false
             }
         }
     }
@@ -48,7 +48,8 @@ public class ObjectPoolScript : MonoBehaviour
     {
         foreach (GameObject item in pool)
         {
-            if (item.gameObject.tag == tagname && !item.activeInHierarchy)
+            if (item.gameObject.tag == tagname && !item.activeInHierarchy)  // Getting the item
+                                                                            // from pool which is false in hierarchy
             {
                 //item.SetActive(true);
                 
@@ -64,7 +65,7 @@ public class ObjectPoolScript : MonoBehaviour
     [System.Serializable]
     public class PoolObject
     {
-        public GameObject prefab;
+        public GameObject prefab;       // GameObject is sent into the class 
         public string name;
         public int amount;
     }

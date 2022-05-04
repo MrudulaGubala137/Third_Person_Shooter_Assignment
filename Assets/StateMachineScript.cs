@@ -33,9 +33,9 @@ public class StateMachineScript : MonoBehaviour
         if (target == null && isGameOver==false)
         {
             target = GameObject.Find("Player").GetComponent<Transform>();
-            agent.SetDestination(target.position);
+            agent.SetDestination(target.position);      // Targeting player position to enemies if game is not true
             //target = GameObject.Find("Player").GetComponent<Transform>();
-            Debug.Log(target);
+            Debug.Log(target);       
         }
         if (target != null)
         {
@@ -66,14 +66,14 @@ public class StateMachineScript : MonoBehaviour
         }
 
     }
-    public void LookFor()
+    public void LookFor()  //Look for method from LookFor state
     {
         TurnOffAllAnim();
         anim.SetTrigger("isWalking");
         float randValueX = transform.position.x + Random.Range(-5f, 5f);
         float randValueZ = transform.position.z + Random.Range(-5f, 5f);
         float ValueY = Terrain.activeTerrain.SampleHeight(new Vector3(randValueX, 0f, randValueZ));
-        Vector3 destination = new Vector3(randValueX, ValueY, randValueZ);
+        Vector3 destination = new Vector3(randValueX, ValueY, randValueZ);  //Wander for enemy
         agent.SetDestination(destination);
         
         if (PlayerDistance() < gotoDistance)
@@ -89,10 +89,10 @@ public class StateMachineScript : MonoBehaviour
 
     private float PlayerDistance()
     {
-        return Vector3.Distance(target.position, this.transform.position);
+        return Vector3.Distance(target.position, this.transform.position);  //Calculating the player distance from enemy
     }
 
-    public void Goto()
+    public void Goto()    // Goto method called from Goto state
     {
         TurnOffAllAnim();
         anim.SetTrigger("isRunning");
@@ -112,7 +112,7 @@ public class StateMachineScript : MonoBehaviour
         }
         print("This is GotoState");
     }
-    public void Attack()
+    public void Attack()    //Attack method called from Attack State 
     {
 
         currentTime = currentTime - Time.deltaTime;
@@ -142,7 +142,7 @@ public class StateMachineScript : MonoBehaviour
         }
         print("This is AttackState");
     }
-    public void Dead()
+    public void Dead()  //Dead method called from death state
     {
         TurnOffAllAnim();
         anim.SetTrigger("isDead");

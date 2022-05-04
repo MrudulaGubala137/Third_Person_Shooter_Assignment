@@ -98,27 +98,27 @@ public class PlayerMovement : MonoBehaviour
     }
     private void Walk()
         {
-        audioSource.clip = WalkClip;
+        audioSource.clip = WalkClip;    //EventMethod for walk adding audio 
         audioSource.Play();
     }
     public void OnTriggerEnter(Collider other)
     {
-        if(other.gameObject.tag=="SpawnPoint")
+        if(other.gameObject.tag=="SpawnPoint")         
         {
-            other.gameObject.SetActive(false);
-            spawnManager.SpawnEnemies();
+            other.gameObject.SetActive(false);          
+            spawnManager.SpawnEnemies();        //Spawing enemies from spawn Manager when spawnPoint is triggered
         }
        else if (other.gameObject.tag == "Ammo" && ammo < maxAmmo)
         {
             print("Ammo picked");
-            ammo = Mathf.Clamp(ammo + 25, 0, maxAmmo);
+            ammo = Mathf.Clamp(ammo + 25, 0, maxAmmo);      //Picking ammo To load the bullets
           //  ammoText.text = "Ammo:" + ammo;
             Destroy(other.gameObject);
         }
         else if (other.gameObject.tag == "Medical" && health < maxHealth)
         {
             print("Medical picked");
-            health = Mathf.Clamp(health + 10, 0, maxHealth);
+            health = Mathf.Clamp(health + 10, 0, maxHealth);        //Picking Health kit to increase player health
             //healthText.text = "Health:"+ health;
             Destroy(other.gameObject);
         }
@@ -129,8 +129,8 @@ public class PlayerMovement : MonoBehaviour
     {
       /* Instantiate(playerRagDoll, this.transform.position, this.transform.rotation);
         tempRd.transform.Find("Hips").GetComponent<Rigidbody>().AddForce(Camera.main.transform.forward * 10000);*/
-        gameOverPanel.SetActive(true);
-        wonLoseText.text = "You Lost";
+        gameOverPanel.SetActive(true);   //If player won then Setting GameOver pannel to true 
+        wonLoseText.text = "You Lost";  
         
         this.gameObject.SetActive(false);
 
@@ -139,8 +139,8 @@ public class PlayerMovement : MonoBehaviour
     }
     public void Won()
     {
-        gameOverPanel.SetActive(true);
-        wonLoseText.text = "You Won";
+        gameOverPanel.SetActive(true);      
+        wonLoseText.text = "You Won";    //If player won then Setting GameOver pannel to true 
         print("Won");
     }
 

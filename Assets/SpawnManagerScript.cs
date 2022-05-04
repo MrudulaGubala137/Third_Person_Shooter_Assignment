@@ -18,10 +18,10 @@ public class SpawnManagerScript : MonoBehaviour
         NavMeshHit hit;
         for (int i = 0; i < 5; i++)
         {
-            if (NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas))
+            if (NavMesh.SamplePosition(randomPoint, out hit, 10f, NavMesh.AllAreas)) 
             {
 
-                GameObject tempEnemy = ObjectPoolScript.instance.GetObjectsFromPool("Enemy");
+                GameObject tempEnemy = ObjectPoolScript.instance.GetObjectsFromPool("Enemy");  //Getting enemy prefabs from pool
                 tempEnemy.transform.position = hit.position;
                 tempEnemy.SetActive(true);
                 print("enemy is true");
