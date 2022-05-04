@@ -26,6 +26,10 @@ public class PlayerMovement : MonoBehaviour
     public Text score;
     public GameObject gameOverPanel;
     public Text wonLoseText;
+    int maxAmmo = 25;
+    int maxHealth = 10;
+     int ammo=25;
+    public Text ammoText;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -41,6 +45,7 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         healthSlider.value = (float)health / 10;
+        ammoText.text = ammo+"/"+maxAmmo;
         float inputX = Input.GetAxis("Horizontal") * playerSpeed;
         float inputZ = Input.GetAxis("Vertical") * playerSpeed;
         Vector3 movement = new Vector3(inputX, 0, inputZ);
@@ -51,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
         {
             characterController.Move(transform.forward * inputZ * Time.deltaTime); //For plyer movement
         }
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetMouseButtonDown(0)&&ammo>0)
         {
             Fire();//FireMethod to fire gun
         }
@@ -70,6 +75,8 @@ public class PlayerMovement : MonoBehaviour
         audioSource.clip = ShootClip;
         audioSource.Play();
         print("Firing");
+        ammo--;
+        print("Ammo" + ammo);
         if (Physics.Raycast(ray, out hit, 100f))
         {
             print("collider hit");
@@ -101,8 +108,23 @@ public class PlayerMovement : MonoBehaviour
             other.gameObject.SetActive(false);
             spawnManager.SpawnEnemies();
         }
-        
+       else if (other.gameObject.tag == "Ammo" && ammo < maxAmmo)
+        {
+            print("Ammo picked");
+            ammo = Mathf.Clamp(ammo + 25, 0, maxAmmo);
+          //  ammoText.text = "Ammo:" + ammo;
+            Destroy(other.gameObject);
+        }
+        else if (other.gameObject.tag == "Medical" && health < maxHealth)
+        {
+            print("Medical picked");
+            health = Mathf.Clamp(health + 10, 0, maxHealth);
+            //healthText.text = "Health:"+ health;
+            Destroy(other.gameObject);
+        }
     }
+
+
     public void GameOver()
     {
       /* Instantiate(playerRagDoll, this.transform.position, this.transform.rotation);
@@ -121,4 +143,5 @@ public class PlayerMovement : MonoBehaviour
         wonLoseText.text = "You Won";
         print("Won");
     }
+
 }
