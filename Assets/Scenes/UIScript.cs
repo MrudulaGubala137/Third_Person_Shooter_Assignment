@@ -8,7 +8,7 @@ public class UIScript : MonoBehaviour
 {
     // Start is called before the first frame update
     public Button play;
-    public Button go;
+    public Button instructions;
     public Button settings;
     public Button back;
     public GameObject instructionsPannel;
@@ -19,8 +19,8 @@ public class UIScript : MonoBehaviour
         
         play.onClick.AddListener(Play);
         settings.onClick.AddListener(Settings);
-        back.onClick.AddListener(Instructions);
-        go.onClick.AddListener(GoToHome);
+        back.onClick.AddListener(GoToHome);
+       instructions.onClick.AddListener(Instructions);
     }
 
     // Update is called once per frame

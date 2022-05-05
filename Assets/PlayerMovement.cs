@@ -56,6 +56,10 @@ public class PlayerMovement : MonoBehaviour
         {
             characterController.Move(transform.forward * inputZ * Time.deltaTime); //For plyer movement
         }
+        if(inputZ<0)
+        {
+            transform.Rotate(Vector3.up * -inputX * Time.deltaTime * rotateSpeed);
+        }
         if (Input.GetMouseButtonDown(0)&&ammo>0)
         {
             Fire();//FireMethod to fire gun
