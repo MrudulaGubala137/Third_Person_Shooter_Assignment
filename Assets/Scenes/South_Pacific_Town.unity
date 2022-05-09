@@ -3324,7 +3324,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 352.69, y: 415.87988}
+  m_AnchoredPosition: {x: 352.69, y: 189}
   m_SizeDelta: {x: 1207.2332, y: 362.365}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &138768956
@@ -40217,7 +40217,7 @@ MonoBehaviour:
   poolItems:
   - prefab: {fileID: 5646796539572866350, guid: 996e59cb7b70426469ef6d3ccd9b61a2, type: 3}
     name: Enemy
-    amount: 10
+    amount: 20
 --- !u!1 &1253326909
 GameObject:
   m_ObjectHideFlags: 0
@@ -73785,6 +73785,10 @@ PrefabInstance:
     - target: {fileID: 7332951897465328356, guid: 7f0267b757af6d048a9396d28e56e0f8, type: 3}
       propertyPath: m_Name
       value: Enemy_Ragdoll
+      objectReference: {fileID: 0}
+    - target: {fileID: 7332951897465328356, guid: 7f0267b757af6d048a9396d28e56e0f8, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7332951897465491076, guid: 7f0267b757af6d048a9396d28e56e0f8, type: 3}
       propertyPath: m_RootOrder

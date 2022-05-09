@@ -17,9 +17,9 @@ public class StateMachineScript : MonoBehaviour
     float attackTime = 3;
     float currentTime = 3;
     bool isGameOver = false;
-  
-    //int maxHealth = 10;
-    RagDollScript ragDollScript;
+    public float visualDistance = 10f, visualAngle = 30f;
+     //int maxHealth = 10;
+     RagDollScript ragDollScript;
    // public GameObject enemyRagDoll;
     public enum STATE { LOOKFOR, GOTO, ATTACK, DEAD };
     public STATE currentState = STATE.LOOKFOR;
@@ -90,13 +90,25 @@ public class StateMachineScript : MonoBehaviour
     private float PlayerDistance()
     {
         return Vector3.Distance(target.position, this.transform.position);  //Calculating the player distance from enemy
+        
+    }
+    public bool CanSeePlayer()
+    {
+        Vector3 direction = target.position - this.transform.position;
+        float angle = Vector3.Angle(direction, this.transform.forward);
+        if (direction.magnitude < visualDistance && angle < visualAngle)
+        {
+            return true;
+        }
+        return false;
+
     }
 
     public void Goto()    // Goto method called from Goto state
     {
         TurnOffAllAnim();
         anim.SetTrigger("isRunning");
-        if (PlayerDistance() > attackDistance)
+        if (PlayerDistance() > attackDistance && CanSeePlayer())
         {
             Debug.Log("Attacking");
             //transform.position = Vector3.MoveTowards(transform.position, target.transform.position * Time.deltaTime);
@@ -114,7 +126,7 @@ public class StateMachineScript : MonoBehaviour
     }
     public void Attack()    //Attack method called from Attack State 
     {
-
+        transform.LookAt(target.position);
         currentTime = currentTime - Time.deltaTime;
         if (currentTime <= 0f&& playerMovement.health>0)
         {
