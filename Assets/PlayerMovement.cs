@@ -22,14 +22,15 @@ public class PlayerMovement : MonoBehaviour
     public int health = 10;
     public Slider healthSlider;
     public GameObject ragDoll;
-    int enemyCount=0;
+    int enemyCount = 0;
     public Text score;
     public GameObject gameOverPanel;
     public Text wonLoseText;
     int maxAmmo = 25;
     int maxHealth = 10;
-     int ammo=25;
+    int ammo = 25;
     public Text ammoText;
+    public GameObject explosion;
     void Start()
     {
         audioSource = GetComponent<AudioSource>();
@@ -39,40 +40,47 @@ public class PlayerMovement : MonoBehaviour
         spawnManager = GameObject.Find("SpawnPoint").GetComponent<SpawnManagerScript>();
         //rb= GetComponent<Rigidbody>();
         gameOverPanel.SetActive(false);
+
+
     }
 
     // Update is called once per frame
     void Update()
     {
         healthSlider.value = (float)health / 10;
-        ammoText.text = ammo+"/"+maxAmmo;
-        float inputX = Input.GetAxis("Horizontal") * playerSpeed;
-        float inputZ = Input.GetAxis("Vertical") * playerSpeed;
-        Vector3 movement = new Vector3(inputX, 0, inputZ);
-        // transform.Translate(inputX,0f,inputZ);
+        ammoText.text = ammo + "/" + maxAmmo;
+        float inputX = Input.GetAxis("Horizontal");
+        float inputZ = Input.GetAxis("Vertical");
+        Vector3 movement = new Vector3(inputX, 0f, inputZ);
         animator.SetFloat("Speed", movement.magnitude);
-        transform.Rotate(Vector3.up * inputX * Time.deltaTime * rotateSpeed);   //Rotating the player
-        if (inputZ != 0)
+        characterController.SimpleMove(movement * Time.deltaTime * playerSpeed);
+
+
+        // player rotation
+        if (movement.magnitude > 0f)
         {
-            characterController.Move(transform.forward * inputZ * Time.deltaTime); //For plyer movement
+            Quaternion tempDirection = Quaternion.LookRotation(movement);
+            transform.rotation = Quaternion.Slerp(transform.rotation, tempDirection, Time.deltaTime * rotateSpeed);
         }
-        if(inputZ<0)
+
+
+        if (Input.GetMouseButtonDown(0) && ammo > 0)
         {
-            transform.Rotate(Vector3.up * -inputX * Time.deltaTime * rotateSpeed);
-        }
-        if (Input.GetMouseButtonDown(0)&&ammo>0)
-        {
+            Instantiate(explosion, this.transform.position, this.transform.rotation);
+            Destroy(explosion, 1f);
             Fire();//FireMethod to fire gun
         }
-        if(enemyCount==5)
+        if (enemyCount == 5)
         {
             Won();
         }
 
     }
+
     private void Fire()
     {
         particle.Play();
+       
         Debug.DrawRay(bulletPoint.position, transform.forward * 100, Color.red, 2f); //Draw ray in firing direction
         Ray ray = new Ray(bulletPoint.position, bulletPoint.forward);
         RaycastHit hit;
